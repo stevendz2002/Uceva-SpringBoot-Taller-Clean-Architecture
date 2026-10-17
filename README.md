@@ -1,4 +1,12 @@
-# Clean Architecture en SpringBoot
+# Clean Architecture en SpringBoot - Taller 6
+
+**UCEVA - Arquitectura de Software**  
+**Docente:** Jesús David Mejía Vergara  
+**Integrante 1:** Jhon Edward Steven Loaiza Diaz (Módulo: `categories`)  
+
+---
+
+## Estructura General del Proyecto
 
 ```
 src/main/java/uceva/cleanarchitecture
@@ -6,90 +14,70 @@ src/main/java/uceva/cleanarchitecture
 ├── domain
 │   ├── entity/
 │   │   ├── User.java
-│   │   └── Product.java
+│   │   ├── Product.java
+│   │   └── Category.java
 │   │
 │   └── repository/
 │       ├── UserRepository.java
-│       └── ProductRepository.java
+│       ├── ProductRepository.java
+│       └── CategoryRepository.java
 │
 ├── application
 │   └── usecase/
 │       ├── GetAllUsersUseCase.java
-│       └── GetAllProductsUseCase.java
+│       ├── GetAllProductsUseCase.java
+│       └── GetAllCategoriesUseCase.java
 │
 ├── infrastructure
 │   ├── controller/
 │   │   ├── UserController.java
-│   │   └── ProductController.java
+│   │   ├── ProductController.java
+│   │   └── CategoryController.java
 │   │
 │   ├── repository/
 │   │   ├── UserRepositoryImpl.java
-│   │   └── ProductRepositoryImpl.java
+│   │   ├── ProductRepositoryImpl.java
+│   │   └── CategoryRepositoryImpl.java
 │   │
 │   └── datasource/
 │       ├── UserDatasource.java
-│       └── ProductDatasource.java
+│       ├── ProductDatasource.java
+│       └── CategoryDatasource.java
 │
 ├── config
-│   └── AppConfig.java
+│   ├── AppConfig.java
+│   └── CorsConfig.java
 │
-└── UcevaSprinBootTallerCleanArchitectureApplication.java
+└── UcevaSpringBootTallerCleanArchitectureApplication.java
 ```
 
+---
 
-## Paso 1 - Crear Entidades
+## Módulo `categories`
 
-```
-src/main/java/uceva/cleanarchitecture/domain/entity
-├── User.java
-└── Product.java
-```
+1. **Dominio:** Entidad `Category` con identificador `Integer id`, campos de negocio `{ name, description, active }` y la interfaz `CategoryRepository` con método `List<Category> getAll();`.
+2. **Aplicación:** `GetAllCategoriesUseCase` orquestando la regla de negocio y delegando la obtención de datos a `CategoryRepository`.
+3. **Infraestructura:**
+   - `CategoryDatasource`: Provee un conjunto estático de 5 categorías realistas en memoria.
+   - `CategoryRepositoryImpl`: Implementa `CategoryRepository` e inyecta `CategoryDatasource`.
+4. **Controlador REST y Swagger:**
+   - `CategoryController`: Mapeado en `@RequestMapping("/categories")` con anotaciones OpenAPI `@Tag`, `@Operation` y `@ApiResponses`.
+5. **Inyección de Dependencias (`AppConfig.java`):**
+   - Beans registrados de forma aditiva: `categoryDatasource`, `categoryRepository`, `getAllCategoriesUseCase` y `customOpenAPI`.
 
-## Paso 2 - Crear Repositorios
+---
 
-```
-src/main/java/uceva/cleanarchitecture/domain/repositories/
-├── UserRepository.java
-└── ProductRepository.java
-```
+## Funcionamiento del Backend
 
-## Paso 3 - Crear Casos de Uso
-
-```
-src/main/java/uceva/cleanarchitecture/application/usecase/
-├── GetAllUsersUseCase.java
-└── GetAllProductsUseCase.java
+### Ejecutar Backend
+```bash
+./gradlew bootRun
 ```
 
-## Paso 4 - Crear Controllers
-
-
+### URLs de Consumo y Swagger UI
 ```
-src/main/java/uceva/cleanarchitecture/infrastructure/controllers/
-├── UserController.java
-└── ProductController.java
-```
-
-## Paso 5 - Crear Repositorios Implementadores
-
-```
-src/main/java/uceva/cleanarchitecture/infrastructure/repository/
-├── UserRepositoryImpl.java
-└── ProductRepositoryImpl.java
-```
-
-## Paso 6 - Agregar la Inyección de Dependencias
-
-```
-src/main/java/uceva/cleanarchitecture/config/
-└── AppConfig.java
-```
-
-# Funcionamiento del Backend
-
-## Urls Consumo
-```
-http://localhost:3000/api/swagger-ui/index.html
+http://localhost:8080/api/swagger-ui/index.html
 http://localhost:8080/api/users/{countUsers}
 http://localhost:8080/api/products/{countProducts}
+http://localhost:8080/api/categories
 ```
