@@ -6,29 +6,35 @@ src/main/java/uceva/cleanarchitecture
 ├── domain
 │   ├── entity/
 │   │   ├── User.java
-│   │   └── Product.java
+│   │   ├── Product.java
+│   │   └── Order.java
 │   │
 │   └── repository/
 │       ├── UserRepository.java
-│       └── ProductRepository.java
+│       ├── ProductRepository.java
+│       └── OrderRepository.java
 │
 ├── application
 │   └── usecase/
 │       ├── GetAllUsersUseCase.java
-│       └── GetAllProductsUseCase.java
+│       ├── GetAllProductsUseCase.java
+│       └── GetAllOrdersUseCase.java
 │
 ├── infrastructure
 │   ├── controller/
 │   │   ├── UserController.java
-│   │   └── ProductController.java
+│   │   ├── ProductController.java
+│   │   └── OrderController.java
 │   │
 │   ├── repository/
 │   │   ├── UserRepositoryImpl.java
-│   │   └── ProductRepositoryImpl.java
+│   │   ├── ProductRepositoryImpl.java
+│   │   └── OrderRepositoryImpl.java
 │   │
 │   └── datasource/
 │       ├── UserDatasource.java
-│       └── ProductDatasource.java
+│       ├── ProductDatasource.java
+│       └── OrderDatasource.java
 │
 ├── config
 │   └── AppConfig.java
@@ -42,7 +48,8 @@ src/main/java/uceva/cleanarchitecture
 ```
 src/main/java/uceva/cleanarchitecture/domain/entity
 ├── User.java
-└── Product.java
+├── Product.java
+└── Order.java
 ```
 
 ## Paso 2 - Crear Repositorios
@@ -50,7 +57,8 @@ src/main/java/uceva/cleanarchitecture/domain/entity
 ```
 src/main/java/uceva/cleanarchitecture/domain/repositories/
 ├── UserRepository.java
-└── ProductRepository.java
+├── ProductRepository.java
+└── OrderRepository.java
 ```
 
 ## Paso 3 - Crear Casos de Uso
@@ -58,7 +66,8 @@ src/main/java/uceva/cleanarchitecture/domain/repositories/
 ```
 src/main/java/uceva/cleanarchitecture/application/usecase/
 ├── GetAllUsersUseCase.java
-└── GetAllProductsUseCase.java
+├── GetAllProductsUseCase.java
+└── GetAllOrdersUseCase.java
 ```
 
 ## Paso 4 - Crear Controllers
@@ -67,7 +76,8 @@ src/main/java/uceva/cleanarchitecture/application/usecase/
 ```
 src/main/java/uceva/cleanarchitecture/infrastructure/controllers/
 ├── UserController.java
-└── ProductController.java
+├── ProductController.java
+└── OrderController.java
 ```
 
 ## Paso 5 - Crear Repositorios Implementadores
@@ -75,7 +85,8 @@ src/main/java/uceva/cleanarchitecture/infrastructure/controllers/
 ```
 src/main/java/uceva/cleanarchitecture/infrastructure/repository/
 ├── UserRepositoryImpl.java
-└── ProductRepositoryImpl.java
+├── ProductRepositoryImpl.java
+└── OrderRepositoryImpl.java
 ```
 
 ## Paso 6 - Agregar la Inyección de Dependencias
@@ -92,4 +103,5 @@ src/main/java/uceva/cleanarchitecture/config/
 http://localhost:3000/api/swagger-ui/index.html
 http://localhost:8080/api/users/{countUsers}
 http://localhost:8080/api/products/{countProducts}
+http://localhost:8080/api/orders
 ```
