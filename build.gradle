@@ -10,7 +10,11 @@ description = 'Uceva-SpringBoot-Taller-Clean-Architecture'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(
+            (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)
+                ? Integer.parseInt(JavaVersion.current().majorVersion)
+                : 21)
+        )
     }
 }
 
